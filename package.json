@@ -1,0 +1,42 @@
+{
+  "name": "abacus",
+  "license": "ISC",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\" ",
+    "clean-frontend": "prettier --write frontend/**/*.{ts,tsx}",
+    "clean-backend": "prettier --write backend/**/*.ts",
+    "lint-frontend": "eslint --config frontend/.eslintrc.json frontend/**/*.{ts,tsx}",
+    "lint-backend": "eslint --config backend/.eslintrc.json backend/**/*.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/acm-mu/abacus.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/acm-mu/abacus/issues"
+  },
+  "homepage": "https://github.com/acm-mu/abacus#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.59.8",
+    "@typescript-eslint/parser": "^5.59.8",
+    "concurrently": "^8.0.1",
+    "eslint": "^7.11.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2",
+    "prettier": "^2.8.8",
+    "typescript": ">=3.3.1 <4.5.0"
+  },
+  "dependencies": {
+    "@monaco-editor/react": "^4.7.0",
+    "@types/express": "^5.0.6",
+    "axios": "^1.13.2",
+    "express": "^5.2.1",
+    "express-validator": "^7.3.1",
+    "react-icons": "^5.5.0"
+  }
+}

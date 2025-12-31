@@ -1,0 +1,44 @@
+name: Build and deploy frontend
+on:
+  push:
+    paths:
+      - "frontend/**"
+    branches:
+      - "master"
+jobs:
+  deploy:
+    name: CI/CD Pipeline
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+
+      - name: Install Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - uses: egordm/gha-yarn-node-cache@v1
+
+      - name: Install dependencies
+        working-directory: frontend
+        run: yarn install
+
+      - name: Build project
+        working-directory: frontend
+        run: yarn build
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Deploy build to Production S3 bucket
+        working-directory: frontend
+        run: aws s3 sync --delete ./build s3://codeabac.us
+
+      - name: Deploy build to Staging S3 bucket
+        working-directory: frontend
+        run: aws s3 sync --delete ./build s3://staging.codeabac.us
